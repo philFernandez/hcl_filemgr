@@ -1,6 +1,5 @@
 package com.hcl.main;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,7 +16,12 @@ import com.hcl.filemgr.ContextMenu;
 import com.hcl.tools.InputReader;
 
 public class MainDriver {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+        startup();
+
+    }
+
+    public static void startup() {
         int choice = -1;
 
         do {
@@ -27,13 +31,14 @@ public class MainDriver {
                 System.out.println(e.getMessage());
             } catch (InputReaderClosedException e) {
                 // Log this exception to disk (This should never happen in production)
-                FileWriter fw = new FileWriter(".exceptions.txt", true);
-                PrintWriter pw = new PrintWriter(fw);
-                e.printStackTrace(pw);
-                pw.close();
-                fw.close();
-                e.printStackTrace(pw);
-                System.exit(1);
+                try (FileWriter fw = new FileWriter(".exceptions.txt", true);
+                        PrintWriter pw = new PrintWriter(fw)) {
+                    e.printStackTrace(pw);
+                    e.printStackTrace(pw);
+                    System.exit(1);
+                } catch (IOException e2) {
+                    e2.addSuppressed(e2);
+                }
             }
 
         } while (choice != 1 && choice != 2);
@@ -55,6 +60,7 @@ public class MainDriver {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            startup();
         }
     }
 
@@ -92,8 +98,6 @@ public class MainDriver {
         if (opt != 1 && opt != 2) {
             throw new InvalidMenuChoiceException("Invalid Menu Choice");
         }
-
-        in.close();
 
         return opt;
     }

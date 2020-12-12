@@ -13,6 +13,11 @@ public class BusinessLogic implements ICoreBusiness {
         this.fileName = fileName;
     }
 
+    public BusinessLogic(String baseDirName, String fileName) {
+        this.baseDirName = baseDirName;
+        this.fileName = fileName;
+    }
+
     @Override
     public void addFile() throws IOException {
         File file = new File(baseDirName, fileName);
@@ -35,4 +40,25 @@ public class BusinessLogic implements ICoreBusiness {
 
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getBaseDirName() {
+        return baseDirName;
+    }
+
+    public void setBaseDirName(String baseDirName) {
+        this.baseDirName = baseDirName;
+    }
+
+    @Override
+    public String toString() {
+        return "BusinessLogic [baseDirName=" + baseDirName + ", fileName=" + fileName
+                + "]";
+    }
 }

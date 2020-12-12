@@ -20,7 +20,7 @@ public class MainDriver {
         new MainDriver().startup();
     }
 
-    public void startup() {
+    private void startup() {
         int choice = -1;
 
         do {
@@ -47,7 +47,7 @@ public class MainDriver {
 
     }
 
-    public void displayAscending() {
+    private void displayAscending() {
         // TODO Test this on window
         String os = System.getProperty("os.name"); // Mac OS X on mac
         if (os.equals("Mac OS X")) {
@@ -63,7 +63,7 @@ public class MainDriver {
         }
     }
 
-    public void menuController(int opt) {
+    private void menuController(int opt) {
         switch (opt) {
             case 1:
                 displayAscending();
@@ -74,7 +74,8 @@ public class MainDriver {
         }
     }
 
-    public int mainMenu() throws InvalidMenuChoiceException, InputReaderClosedException {
+    private int mainMenu()
+            throws InvalidMenuChoiceException, InputReaderClosedException {
         System.out.println();
         new ContextMenu("Welcome to LockMe.com File Manager",
                 new String[] {"Please Choose an Option", "(1) Display Files",

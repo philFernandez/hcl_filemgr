@@ -1,9 +1,11 @@
 package com.hcl.interfaces;
 
+import java.io.IOException;
+
 public interface ICoreBusiness {
-    void addFile(String filename);
+    void addFile() throws IOException;
 
-    void deleteFile(String filename);
+    void deleteFile();
 
-    void searchFile(String filename);
+    void searchFile();
 }

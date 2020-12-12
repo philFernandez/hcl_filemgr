@@ -42,12 +42,11 @@ public class MainDriver {
 
         } while (choice != 1 && choice != 2);
 
-
         menuController(choice);
-
     }
 
     private void displayAscending() {
+        clearScreen();
         // TODO Test this on window
         String os = System.getProperty("os.name"); // Mac OS X on mac
         if (os.equals("Mac OS X")) {
@@ -63,20 +62,27 @@ public class MainDriver {
         }
     }
 
+    private void businessLevelOps() {
+        clearScreen();
+        new ContextMenu(new String[] {"(1) Add New File", "(2) Delete Existing File",
+                "(3) Search For File"}, "~");
+
+    }
+
     private void menuController(int opt) {
         switch (opt) {
             case 1:
                 displayAscending();
                 break;
             case 2:
-                System.out.println("you chose 2");
+                businessLevelOps();
                 break;
         }
     }
 
     private int mainMenu()
             throws InvalidMenuChoiceException, InputReaderClosedException {
-        System.out.println();
+        System.out.println('\n');
         new ContextMenu("Welcome to LockMe.com File Manager",
                 new String[] {"Please Choose an Option", "(1) Display Files",
                         "(2) Display Business Level Operations"},
@@ -99,5 +105,10 @@ public class MainDriver {
         }
 
         return opt;
+    }
+
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

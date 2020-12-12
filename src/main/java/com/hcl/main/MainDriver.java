@@ -17,6 +17,7 @@ import com.hcl.tools.InputReader;
 
 public class MainDriver {
     public static void main(String[] args) {
+        clearScreen();
         new MainDriver().startup();
     }
 

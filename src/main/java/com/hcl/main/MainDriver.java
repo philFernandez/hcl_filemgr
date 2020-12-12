@@ -64,7 +64,7 @@ public class MainDriver {
     private int mainMenu()
             throws InvalidMenuChoiceException, InputReaderClosedException {
         System.out.println('\n');
-        new ContextMenu("Welcome to LockMe.com File Manager",
+        new ContextMenu("Welcome to LockMe.com File Manager Main Menu",
                 new String[] {"Please Choose an Option", "(1) Display Files",
                         "(2) Display Business Level Operations", "(3) Exit"},
                 "~");
@@ -120,8 +120,8 @@ public class MainDriver {
     private int businessOpsMenu()
             throws InvalidMenuChoiceException, InputReaderClosedException {
         System.out.println('\n');
-        new ContextMenu(new String[] {"(1) Add File", "(2) Delete File",
-                "(3) Search File", "(4) Return to Main Menu"}, "~");
+        new ContextMenu("File Operations Menu", new String[] {"(1) Add File",
+                "(2) Delete File", "(3) Search File", "(4) Return to Main Menu"}, "~");
         InputReader in = InputReader.getInstance();
         int opt;
         try {

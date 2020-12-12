@@ -14,10 +14,11 @@ import com.hcl.exceptions.InputReaderClosedException;
 import com.hcl.exceptions.InvalidMenuChoiceException;
 import com.hcl.filemgr.ContextMenu;
 import com.hcl.tools.InputReader;
+import com.hcl.tools.Utils;
 
 public class MainDriver {
     public static void main(String[] args) {
-        clearScreen();
+        Utils.clearScreen();
         new MainDriver().startup();
     }
 
@@ -44,6 +45,45 @@ public class MainDriver {
         } while (choice != 1 && choice != 2);
 
         mainMenuController(choice);
+    }
+
+    private void mainMenuController(int opt) {
+        switch (opt) {
+            case 1:
+                displayAscending();
+                break;
+            case 2:
+                Utils.clearScreen();
+                startupBusinessOps();
+                break;
+        }
+    }
+
+    private int mainMenu()
+            throws InvalidMenuChoiceException, InputReaderClosedException {
+        System.out.println('\n');
+        new ContextMenu("Welcome to LockMe.com File Manager",
+                new String[] {"Please Choose an Option", "(1) Display Files",
+                        "(2) Display Business Level Operations"},
+                "~");
+
+        InputReader in = InputReader.getInstance();
+
+        int opt;
+        try {
+            opt = in.nextInt();
+        } catch (InputMismatchException e) {
+            // clear InputReader buffer of mismatched input
+            in.nextLine();
+            // set opt to 0 so subsequent InvalideMenuChoiceException is thrown
+            opt = 0;
+        }
+
+        if (opt != 1 && opt != 2) {
+            throw new InvalidMenuChoiceException("Invalid Menu Choice");
+        }
+
+        return opt;
     }
 
     /**
@@ -112,52 +152,9 @@ public class MainDriver {
         }
     }
 
-    private void mainMenuController(int opt) {
-        switch (opt) {
-            case 1:
-                displayAscending();
-                break;
-            case 2:
-                clearScreen();
-                startupBusinessOps();
-                break;
-        }
-    }
-
-    private int mainMenu()
-            throws InvalidMenuChoiceException, InputReaderClosedException {
-        System.out.println('\n');
-        new ContextMenu("Welcome to LockMe.com File Manager",
-                new String[] {"Please Choose an Option", "(1) Display Files",
-                        "(2) Display Business Level Operations"},
-                "~");
-
-        InputReader in = InputReader.getInstance();
-
-        int opt;
-        try {
-            opt = in.nextInt();
-        } catch (InputMismatchException e) {
-            // clear InputReader buffer of mismatched input
-            in.nextLine();
-            // set opt to 0 so subsequent InvalideMenuChoiceException is thrown
-            opt = 0;
-        }
-
-        if (opt != 1 && opt != 2) {
-            throw new InvalidMenuChoiceException("Invalid Menu Choice");
-        }
-
-        return opt;
-    }
-
-    public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
 
     private void displayAscending() {
-        clearScreen();
+        Utils.clearScreen();
         // TODO Test this on window
         String os = System.getProperty("os.name"); // Mac OS X on mac
         if (os.equals("Mac OS X")) {
@@ -178,5 +175,4 @@ public class MainDriver {
         startup();
         return false;
     }
-
 }

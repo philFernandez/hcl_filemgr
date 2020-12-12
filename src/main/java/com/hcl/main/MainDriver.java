@@ -42,7 +42,7 @@ public class MainDriver {
                 }
             }
 
-        } while (choice != 1 && choice != 2);
+        } while (choice != 1 && choice != 2 && choice != 3);
 
         mainMenuController(choice);
     }
@@ -56,6 +56,8 @@ public class MainDriver {
                 Utils.clearScreen();
                 startupBusinessOps();
                 break;
+            case 3:
+                System.exit(0);
         }
     }
 
@@ -64,7 +66,7 @@ public class MainDriver {
         System.out.println('\n');
         new ContextMenu("Welcome to LockMe.com File Manager",
                 new String[] {"Please Choose an Option", "(1) Display Files",
-                        "(2) Display Business Level Operations"},
+                        "(2) Display Business Level Operations", "(3) Exit"},
                 "~");
 
         InputReader in = InputReader.getInstance();
@@ -79,7 +81,7 @@ public class MainDriver {
             opt = 0;
         }
 
-        if (opt != 1 && opt != 2) {
+        if (opt != 1 && opt != 2 && opt != 3) {
             throw new InvalidMenuChoiceException("Invalid Menu Choice");
         }
 
@@ -151,7 +153,6 @@ public class MainDriver {
                 break;
         }
     }
-
 
     private void displayAscending() {
         Utils.clearScreen();

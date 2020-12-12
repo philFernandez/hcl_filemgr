@@ -62,7 +62,7 @@ public class MainDriver {
             opt = in.nextInt();
         } catch (InputMismatchException e) {
             // clear InputReader buffer of mismatched input
-            in.next();
+            in.nextLine();
             // set opt to 0 so subsequent InvalideMenuChoiceException is thrown
             opt = 0;
         }

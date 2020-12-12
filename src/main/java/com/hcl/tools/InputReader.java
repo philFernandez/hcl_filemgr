@@ -6,7 +6,7 @@ import com.hcl.exceptions.InputReaderClosedException;
 /**
  * Singleton InputReader wraps java Scanner for avoiding problems with closing System.in when using
  * Scanner default behavior
- * 
+ *
  */
 public class InputReader {
     private Scanner inputReader;
@@ -37,6 +37,13 @@ public class InputReader {
             throw new InputReaderClosedException("InputReader is closed");
         }
         return inputReader.next();
+    }
+
+    public String nextLine() throws InputReaderClosedException {
+        if (isClosed) {
+            throw new InputReaderClosedException("InputReader is closed");
+        }
+        return inputReader.nextLine();
     }
 
     public void close() {

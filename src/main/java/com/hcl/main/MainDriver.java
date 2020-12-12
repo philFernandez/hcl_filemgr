@@ -112,7 +112,7 @@ public class MainDriver {
                 }
             }
 
-        } while (choice != 1 && choice != 2 && choice != 3);
+        } while (choice != 1 && choice != 2 && choice != 3 && choice != 4);
         businessMenuController(choice);
 
     }
@@ -120,9 +120,8 @@ public class MainDriver {
     private int businessOpsMenu()
             throws InvalidMenuChoiceException, InputReaderClosedException {
         System.out.println('\n');
-        new ContextMenu(
-                new String[] {"(1) Add File", "(2) Delete File", "(3) Search File"},
-                "~");
+        new ContextMenu(new String[] {"(1) Add File", "(2) Delete File",
+                "(3) Search File", "(4) Return to Main Menu"}, "~");
         InputReader in = InputReader.getInstance();
         int opt;
         try {
@@ -132,7 +131,7 @@ public class MainDriver {
             opt = 0;
         }
 
-        if (opt != 1 && opt != 2 && opt != 3) {
+        if (opt != 1 && opt != 2 && opt != 3 && opt != 4) {
             throw new InvalidMenuChoiceException("Invalid Menu Choice");
         }
 
@@ -150,6 +149,10 @@ public class MainDriver {
                 break;
             case 3:
                 // search
+                break;
+            case 4:
+                Utils.clearScreen();
+                startup();
                 break;
         }
     }
@@ -173,7 +176,6 @@ public class MainDriver {
 
     private boolean addFile() {
         System.out.println("You add file");
-        startup();
         return false;
     }
 }

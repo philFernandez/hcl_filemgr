@@ -15,7 +15,8 @@ public class BusinessLogic implements ICoreBusiness {
 
     @Override
     public void addFile() throws IOException {
-        final String FILE_PATH = baseDirName + "/" + fileName;
+        final String FILE_PATH = fileName;
+        System.out.println("FILENAME : " + fileName);
         File file = new File(FILE_PATH);
         if (file.createNewFile()) {
             System.out.println(file.getName() + " : File Created");

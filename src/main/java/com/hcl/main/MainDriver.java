@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import com.hcl.exceptions.InputReaderClosedException;
 import com.hcl.exceptions.InvalidMenuChoiceException;
+import com.hcl.filemgr.BusinessLogic;
 import com.hcl.filemgr.ContextMenu;
 import com.hcl.tools.InputReader;
 import com.hcl.tools.Utils;
@@ -183,7 +184,19 @@ public class MainDriver {
     }
 
     private boolean addFile() {
-        System.out.println("You add file");
+        Utils.clearScreen();
+        InputReader in = InputReader.getInstance();
+
+        try {
+            System.out.print("Enter File Name : ");
+            String fileName = in.nextLine();
+            BusinessLogic newFile = new BusinessLogic(fileName);
+            newFile.addFile();
+            return true;
+        } catch (InputReaderClosedException | IOException e) {
+            // TODO set this up to log
+            e.printStackTrace();
+        }
         return false;
     }
 }

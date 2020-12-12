@@ -29,7 +29,10 @@ public class InputReader {
         if (isClosed) {
             throw new InputReaderClosedException("InputReader is closed");
         }
-        return inputReader.nextInt();
+        int n = inputReader.nextInt();
+        // advance cursor to next line after reading int (to avoid problems with subsequent reads)
+        inputReader.nextLine();
+        return n;
     }
 
     public String next() throws InputReaderClosedException {

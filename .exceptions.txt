@@ -1,0 +1,24 @@
+com.hcl.exceptions.InputReaderClosedException: InputReader is closed
+	at com.hcl.tools.InputReader.nextInt(InputReader.java:30)
+	at com.hcl.main.MainDriver.mainMenu(MainDriver.java:63)
+	at com.hcl.main.MainDriver.main(MainDriver.java:17)
+com.hcl.exceptions.InputReaderClosedException: InputReader is closed
+	at com.hcl.tools.InputReader.nextInt(InputReader.java:30)
+	at com.hcl.main.MainDriver.mainMenu(MainDriver.java:61)
+	at com.hcl.main.MainDriver.main(MainDriver.java:17)
+com.hcl.exceptions.InputReaderClosedException: InputReader is closed
+	at com.hcl.tools.InputReader.nextInt(InputReader.java:30)
+	at com.hcl.main.MainDriver.mainMenu(MainDriver.java:62)
+	at com.hcl.main.MainDriver.main(MainDriver.java:18)
+com.hcl.exceptions.InputReaderClosedException: InputReader is closed
+	at com.hcl.tools.InputReader.nextInt(InputReader.java:30)
+	at com.hcl.main.MainDriver.mainMenu(MainDriver.java:62)
+	at com.hcl.main.MainDriver.main(MainDriver.java:18)
+com.hcl.exceptions.InputReaderClosedException: InputReader is closed
+	at com.hcl.tools.InputReader.nextInt(InputReader.java:30)
+	at com.hcl.main.MainDriver.mainMenu(MainDriver.java:62)
+	at com.hcl.main.MainDriver.main(MainDriver.java:18)
+com.hcl.exceptions.InputReaderClosedException: InputReader is closed
+	at com.hcl.tools.InputReader.nextInt(InputReader.java:30)
+	at com.hcl.main.MainDriver.mainMenu(MainDriver.java:62)
+	at com.hcl.main.MainDriver.main(MainDriver.java:18)

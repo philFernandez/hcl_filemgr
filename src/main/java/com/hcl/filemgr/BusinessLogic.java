@@ -9,15 +9,13 @@ public class BusinessLogic implements ICoreBusiness {
     private String baseDirName;
 
     public BusinessLogic(String fileName) {
-        baseDirName = "LockMe";
+        baseDirName = "LockMeFileManagerRoot";
         this.fileName = fileName;
     }
 
     @Override
     public void addFile() throws IOException {
-        final String FILE_PATH = fileName;
-        System.out.println("FILENAME : " + fileName);
-        File file = new File(FILE_PATH);
+        File file = new File(baseDirName, fileName);
         if (file.createNewFile()) {
             System.out.println(file.getName() + " : File Created");
         } else {

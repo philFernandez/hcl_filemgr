@@ -169,9 +169,10 @@ public class MainDriver {
     private void displayAscending() {
         Utils.clearScreen();
         // TODO Test this on window
-        String os = System.getProperty("os.name"); // Mac OS X on mac
-        if (os.equals("Mac OS X")) {
-            try (Stream<Path> walk = Files.walk(Paths.get("./LockMe"))) {
+        final String OS = System.getProperty("os.name"); // Mac OS X on mac
+        final String ROOT = "LockMeFileManagerRoot";
+        if (OS.equals("Mac OS X")) {
+            try (Stream<Path> walk = Files.walk(Paths.get(ROOT))) {
                 List<String> nodes = walk.filter(Files::isRegularFile).sorted()
                         .map(f -> f.toString()).collect(Collectors.toList());
                 nodes.forEach(System.out::println);

@@ -63,11 +63,54 @@ public class MainDriver {
         }
     }
 
-    private void businessLevelOps() {
-        clearScreen();
-        new ContextMenu(new String[] {"(1) Add New File", "(2) Delete Existing File",
-                "(3) Search For File"}, "~");
+    /**
+     * Set this up like how startup and mainMenu are. So this will be like starup, and need another
+     * method like mainMenu (or make mainMenu be able to handle both) (maybe make starup handle both. it
+     * could take a flag telling it what to do)
+     */
+    private void startupBusinessOps() {
+        int choice = -1;
+        do {
+            try {
+                choice = businessOpsMenu();
+            } catch (InvalidMenuChoiceException e) {
+                System.out.println(e.getMessage());
+            } catch (InputReaderClosedException e) {
+                // Log this exception to disk (This should never happen in production)
+                try (FileWriter fw = new FileWriter(".exceptions.txt", true);
+                        PrintWriter pw = new PrintWriter(fw)) {
+                    e.printStackTrace(pw);
+                    e.printStackTrace(pw);
+                    System.exit(1);
+                } catch (IOException e2) {
+                    e2.addSuppressed(e2);
+                }
+            }
 
+        } while (choice != 1 && choice != 2 && choice != 3);
+
+    }
+
+    private int businessOpsMenu()
+            throws InvalidMenuChoiceException, InputReaderClosedException {
+        System.out.println('\n');
+        new ContextMenu(
+                new String[] {"(1) Add File", "(2) Delete File", "(3) Search File"},
+                "~");
+        InputReader in = InputReader.getInstance();
+        int opt;
+        try {
+            opt = in.nextInt();
+        } catch (InputMismatchException e) {
+            in.nextLine();
+            opt = 0;
+        }
+
+        if (opt != 1 && opt != 2 && opt != 3) {
+            throw new InvalidMenuChoiceException("Invalid Menu Choice");
+        }
+
+        return opt;
     }
 
     private void menuController(int opt) {
@@ -76,7 +119,8 @@ public class MainDriver {
                 displayAscending();
                 break;
             case 2:
-                businessLevelOps();
+                clearScreen();
+                startupBusinessOps();
                 break;
         }
     }

@@ -1,9 +1,16 @@
 package com.hcl.main;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.InputMismatchException;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import com.hcl.exceptions.InputReaderClosedException;
 import com.hcl.exceptions.InvalidMenuChoiceException;
 import com.hcl.filemgr.ContextMenu;
@@ -36,10 +43,25 @@ public class MainDriver {
 
     }
 
+    public static void displayAscending() {
+        // TODO Test this on window
+        String os = System.getProperty("os.name"); // Mac OS X on mac
+        if (os.equals("Mac OS X")) {
+            try (Stream<Path> walk = Files.walk(Paths.get("./LockMe"))) {
+                List<String> nodes = walk.filter(Files::isRegularFile).sorted()
+                        .map(f -> f.toString()).collect(Collectors.toList());
+                nodes.forEach(System.out::println);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static void menuController(int opt) {
         switch (opt) {
             case 1:
-                System.out.println("you chose 1");
+                displayAscending();
                 break;
             case 2:
                 System.out.println("you chose 2");

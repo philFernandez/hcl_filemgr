@@ -43,24 +43,7 @@ public class MainDriver {
 
         } while (choice != 1 && choice != 2);
 
-        menuController(choice);
-    }
-
-    private void displayAscending() {
-        clearScreen();
-        // TODO Test this on window
-        String os = System.getProperty("os.name"); // Mac OS X on mac
-        if (os.equals("Mac OS X")) {
-            try (Stream<Path> walk = Files.walk(Paths.get("./LockMe"))) {
-                List<String> nodes = walk.filter(Files::isRegularFile).sorted()
-                        .map(f -> f.toString()).collect(Collectors.toList());
-                nodes.forEach(System.out::println);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            startup();
-        }
+        mainMenuController(choice);
     }
 
     /**
@@ -88,6 +71,7 @@ public class MainDriver {
             }
 
         } while (choice != 1 && choice != 2 && choice != 3);
+        businessMenuController(choice);
 
     }
 
@@ -113,7 +97,22 @@ public class MainDriver {
         return opt;
     }
 
-    private void menuController(int opt) {
+    private void businessMenuController(int opt) {
+        switch (opt) {
+            case 1:
+                // add file
+                addFile();
+                break;
+            case 2:
+                // delete
+                break;
+            case 3:
+                // search
+                break;
+        }
+    }
+
+    private void mainMenuController(int opt) {
         switch (opt) {
             case 1:
                 displayAscending();
@@ -156,4 +155,28 @@ public class MainDriver {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+
+    private void displayAscending() {
+        clearScreen();
+        // TODO Test this on window
+        String os = System.getProperty("os.name"); // Mac OS X on mac
+        if (os.equals("Mac OS X")) {
+            try (Stream<Path> walk = Files.walk(Paths.get("./LockMe"))) {
+                List<String> nodes = walk.filter(Files::isRegularFile).sorted()
+                        .map(f -> f.toString()).collect(Collectors.toList());
+                nodes.forEach(System.out::println);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            startup();
+        }
+    }
+
+    private boolean addFile() {
+        System.out.println("You add file");
+        startup();
+        return false;
+    }
+
 }

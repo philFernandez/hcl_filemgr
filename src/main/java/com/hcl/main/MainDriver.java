@@ -184,7 +184,7 @@ public class MainDriver {
         }
     }
 
-    private boolean addFile() {
+    private void addFile() {
         Utils.clearScreen();
         InputReader in = InputReader.getInstance();
 
@@ -193,11 +193,10 @@ public class MainDriver {
             String fileName = in.nextLine();
             BusinessLogic newFile = new BusinessLogic(fileName);
             newFile.addFile();
-            return true;
         } catch (InputReaderClosedException | IOException e) {
             // TODO set this up to log
             e.printStackTrace();
         }
-        return false;
+        startupBusinessOps();
     }
 }

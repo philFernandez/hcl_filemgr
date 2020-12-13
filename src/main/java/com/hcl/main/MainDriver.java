@@ -23,8 +23,13 @@ public class MainDriver {
     public static void main(String[] args) {
         Utils.clearScreen();
         MainDriver driver = new MainDriver();
+        // Show welcome banner
         driver.welcome();
+        // Startup main menu
         driver.startup();
+        // InputReader is a singleton wrapper around Scanner. It is closed
+        // here at the very end of the program (see com.hcl.tools.InputReader.java)
+        InputReader.getInstance().close();
     }
 
     private void welcome() {
@@ -225,8 +230,17 @@ public class MainDriver {
             BusinessLogic newFile = new BusinessLogic(fileName);
             newFile.addFile();
         } catch (InputReaderClosedException | IOException e) {
-            // TODO set this up to log
-            e.printStackTrace();
+
+            // This will only happen if InputReader is closed. It isn't closed, so
+            // this will never happen.
+            try (FileWriter fw = new FileWriter(".exceptions", true);
+                    PrintWriter pw = new PrintWriter(fw)) {
+                e.printStackTrace(pw);
+
+            } catch (IOException e2) {
+                e2.addSuppressed(e2);
+            }
+
         }
         startupBusinessOps();
     }
@@ -240,8 +254,16 @@ public class MainDriver {
             BusinessLogic removeFile = new BusinessLogic(fileName);
             removeFile.deleteFile();
         } catch (InputReaderClosedException e) {
-            // TODO set this up to log
-            e.printStackTrace();
+
+            // This will only happen if InputReader is closed. It isn't closed, so
+            // this will never happen.
+            try (FileWriter fw = new FileWriter(".exceptions", true);
+                    PrintWriter pw = new PrintWriter(fw)) {
+                e.printStackTrace(pw);
+
+            } catch (IOException e2) {
+                e2.addSuppressed(e2);
+            }
         }
         startupBusinessOps();
     }
@@ -254,8 +276,16 @@ public class MainDriver {
             String fileName = in.nextLine();
             new BusinessLogic(fileName).searchFile();
         } catch (InputReaderClosedException e) {
-            // TODO log to file
-            e.printStackTrace();
+
+            // This will only happen if InputReader is closed. It isn't closed, so
+            // this will never happen.
+            try (FileWriter fw = new FileWriter(".exceptions", true);
+                    PrintWriter pw = new PrintWriter(fw)) {
+                e.printStackTrace(pw);
+
+            } catch (IOException e2) {
+                e2.addSuppressed(e2);
+            }
         }
         startupBusinessOps();
     }

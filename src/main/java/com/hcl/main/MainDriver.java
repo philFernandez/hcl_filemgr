@@ -27,7 +27,9 @@ public class MainDriver {
     }
 
     private void welcome() {
-        new ContextMenu("Welcome to the LockMe.com File Manager!", "-");
+        String[] about =
+                {"Developer      : Phil Fernandez", "Product Owner  : Lockers Pvt. Ltd"};
+        new ContextMenu("Welcome to the LockMe.com File Manager!", about, "-");
     }
 
     private void startup() {
@@ -72,10 +74,9 @@ public class MainDriver {
     private int mainMenu()
             throws InvalidMenuChoiceException, InputReaderClosedException {
         System.out.println('\n');
-        new ContextMenu("File Manager Main Menu",
-                new String[] {"Please Choose an Option", "(1) Display Files",
-                        "(2) Display Business Level Operations", "(3) Exit"},
-                "~");
+        String[] options = {"Please Choose an Option", "(1) Display Files",
+                "(2) Display Business Level Operations", "(3) Exit"};
+        new ContextMenu("File Manager Main Menu", options, "~");
 
         InputReader in = InputReader.getInstance();
 

@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -179,11 +181,15 @@ public class MainDriver {
         if (!rootDir.isDirectory()) {
             rootDir.mkdir();
         }
+
         if (OS.equals("Mac OS X")) {
             try (Stream<Path> walk = Files.walk(Paths.get(ROOT))) {
-                List<String> nodes = walk.filter(Files::isRegularFile).sorted()
+                List<String> nodes = walk.filter(Files::isRegularFile)
                         .map(f -> f.toString()).collect(Collectors.toList());
-                nodes.forEach(System.out::println);
+
+                Collections.sort(nodes, String.CASE_INSENSITIVE_ORDER);
+                // nodes.forEach(node -> System.out.println(node.split("/")[1]));
+                nodes.forEach(node -> System.out.println(Utils.last(node.split("/"))));
 
             } catch (IOException e) {
                 e.printStackTrace();

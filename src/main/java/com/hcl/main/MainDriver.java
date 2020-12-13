@@ -33,9 +33,11 @@ public class MainDriver {
         new ContextMenu("Welcome to the LockMe.com File Manager!", about, "-");
     }
 
+    /**
+     * Runs the startup menu until valid input is given
+     */
     private void startup() {
         int choice = -1;
-
         do {
             try {
                 choice = mainMenu();
@@ -43,9 +45,8 @@ public class MainDriver {
                 System.out.println(e.getMessage());
             } catch (InputReaderClosedException e) {
                 // Log this exception to disk (This should never happen in production)
-                try (FileWriter fw = new FileWriter(".exceptions.txt", true);
+                try (FileWriter fw = new FileWriter(".exceptions", true);
                         PrintWriter pw = new PrintWriter(fw)) {
-                    e.printStackTrace(pw);
                     e.printStackTrace(pw);
                     System.exit(1);
                 } catch (IOException e2) {
@@ -58,6 +59,41 @@ public class MainDriver {
         mainMenuController(choice);
     }
 
+    /**
+     * Shows main menu and propmpts user to make a choice returns user's choice
+     * 
+     * @return int
+     */
+    private int mainMenu()
+            throws InvalidMenuChoiceException, InputReaderClosedException {
+        System.out.println('\n');
+        String[] options = {"Please Choose an Option", "(1) Display Files",
+                "(2) Display Business Level Operations", "(3) Exit"};
+        new ContextMenu("File Manager Main Menu", options, "~");
+
+        InputReader in = InputReader.getInstance();
+
+        int opt;
+        try {
+            opt = in.nextInt();
+            // prevent crash from wrong type input (ex. letters rather than expected digits)
+        } catch (InputMismatchException e) {
+            // clear InputReader buffer of mismatched input
+            in.nextLine();
+            // set opt to 0 so subsequent InvalideMenuChoiceException is thrown
+            opt = 0;
+        }
+
+        // Throw custom exception if an invalid input is detected
+        if (opt != 1 && opt != 2 && opt != 3) {
+            throw new InvalidMenuChoiceException("Invalid Menu Choice");
+        }
+
+        return opt;
+    }
+
+    // Is called from "startup()" after user input is obtained
+    // Controls the flow of program depending on input from main menu
     private void mainMenuController(int opt) {
         switch (opt) {
             case 1:
@@ -72,36 +108,8 @@ public class MainDriver {
         }
     }
 
-    private int mainMenu()
-            throws InvalidMenuChoiceException, InputReaderClosedException {
-        System.out.println('\n');
-        String[] options = {"Please Choose an Option", "(1) Display Files",
-                "(2) Display Business Level Operations", "(3) Exit"};
-        new ContextMenu("File Manager Main Menu", options, "~");
-
-        InputReader in = InputReader.getInstance();
-
-        int opt;
-        try {
-            opt = in.nextInt();
-        } catch (InputMismatchException e) {
-            // clear InputReader buffer of mismatched input
-            in.nextLine();
-            // set opt to 0 so subsequent InvalideMenuChoiceException is thrown
-            opt = 0;
-        }
-
-        if (opt != 1 && opt != 2 && opt != 3) {
-            throw new InvalidMenuChoiceException("Invalid Menu Choice");
-        }
-
-        return opt;
-    }
-
     /**
-     * Set this up like how startup and mainMenu are. So this will be like starup, and need another
-     * method like mainMenu (or make mainMenu be able to handle both) (maybe make starup handle both. it
-     * could take a flag telling it what to do)
+     * Runs the business operations menu until valid input is given
      */
     private void startupBusinessOps() {
         int choice = -1;
@@ -112,9 +120,8 @@ public class MainDriver {
                 System.out.println(e.getMessage());
             } catch (InputReaderClosedException e) {
                 // Log this exception to disk (This should never happen in production)
-                try (FileWriter fw = new FileWriter(".exceptions.txt", true);
+                try (FileWriter fw = new FileWriter(".exceptions", true);
                         PrintWriter pw = new PrintWriter(fw)) {
-                    e.printStackTrace(pw);
                     e.printStackTrace(pw);
                     System.exit(1);
                 } catch (IOException e2) {
@@ -124,9 +131,13 @@ public class MainDriver {
 
         } while (choice != 1 && choice != 2 && choice != 3 && choice != 4);
         businessMenuController(choice);
-
     }
 
+    /**
+     * Show business operations menu to user and prompt for choice returns the user's choice
+     * 
+     * @return int
+     */
     private int businessOpsMenu()
             throws InvalidMenuChoiceException, InputReaderClosedException {
         System.out.println('\n');
@@ -138,11 +149,13 @@ public class MainDriver {
         int opt;
         try {
             opt = in.nextInt();
+            // handle wrong type input (ie. user inputs string instead of number)
         } catch (InputMismatchException e) {
             in.nextLine();
             opt = 0;
         }
 
+        // throw custom excepiton if invalid input is given
         if (opt != 1 && opt != 2 && opt != 3 && opt != 4) {
             throw new InvalidMenuChoiceException("Invalid Menu Choice");
         }
@@ -150,6 +163,8 @@ public class MainDriver {
         return opt;
     }
 
+    // Is called from "startupBusinessOps()" after user input is obtained
+    // Controls the flow of program depending on input from business ops menu
     private void businessMenuController(int opt) {
         switch (opt) {
             case 1:
@@ -171,6 +186,9 @@ public class MainDriver {
         }
     }
 
+    /**
+     * Displays current files in caseinsensitive alphabetical order
+     */
     private void displayAscending() {
         Utils.clearScreen();
         // TODO Test this on windows os

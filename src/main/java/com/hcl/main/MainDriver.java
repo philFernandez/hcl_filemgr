@@ -1,5 +1,6 @@
 package com.hcl.main;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -169,9 +170,13 @@ public class MainDriver {
 
     private void displayAscending() {
         Utils.clearScreen();
-        // TODO Test this on window
+        // TODO Test this on windows os
         final String OS = System.getProperty("os.name"); // Mac OS X on mac
         final String ROOT = "LockMeFileManagerRoot";
+        File rootDir = new File(ROOT);
+        if (!rootDir.isDirectory()) {
+            rootDir.mkdir();
+        }
         if (OS.equals("Mac OS X")) {
             try (Stream<Path> walk = Files.walk(Paths.get(ROOT))) {
                 List<String> nodes = walk.filter(Files::isRegularFile).sorted()

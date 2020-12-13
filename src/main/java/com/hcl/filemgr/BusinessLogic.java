@@ -8,14 +8,18 @@ public class BusinessLogic implements ICoreBusiness {
     private String fileName;
     private String baseDirName;
 
-    public BusinessLogic(String fileName) {
-        baseDirName = "LockMeFileManagerRoot";
-        this.fileName = fileName;
-    }
 
     public BusinessLogic(String baseDirName, String fileName) {
         this.baseDirName = baseDirName;
         this.fileName = fileName;
+        File base = new File(baseDirName);
+        if (!base.isDirectory()) {
+            base.mkdir();
+        }
+    }
+
+    public BusinessLogic(String fileName) {
+        this("LockMeFileManagerRoot", fileName);
     }
 
     @Override

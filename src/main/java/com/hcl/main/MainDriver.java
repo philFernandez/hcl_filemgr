@@ -160,6 +160,7 @@ public class MainDriver {
                 break;
             case 3:
                 // search
+                searchFile();
                 break;
             case 4:
                 Utils.clearScreen();
@@ -216,6 +217,20 @@ public class MainDriver {
             removeFile.deleteFile();
         } catch (InputReaderClosedException e) {
             // TODO set this up to log
+            e.printStackTrace();
+        }
+        startupBusinessOps();
+    }
+
+    private void searchFile() {
+        Utils.clearScreen();
+        InputReader in = InputReader.getInstance();
+        try {
+            System.out.print("Enter File Name To Search : ");
+            String fileName = in.nextLine();
+            new BusinessLogic(fileName).searchFile();
+        } catch (InputReaderClosedException e) {
+            // TODO log to file
             e.printStackTrace();
         }
         startupBusinessOps();

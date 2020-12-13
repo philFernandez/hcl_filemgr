@@ -44,7 +44,12 @@ public class BusinessLogic implements ICoreBusiness {
 
     @Override
     public void searchFile() {
-        // TODO Auto-generated method stub
+        File file = new File(baseDirName, fileName);
+        if (file.exists()) {
+            System.out.println(file.getName() + " : This File Is Present");
+        } else {
+            System.out.println(file.getName() + " : No Such File Exists");
+        }
 
     }
 

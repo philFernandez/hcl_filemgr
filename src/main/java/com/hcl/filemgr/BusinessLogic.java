@@ -30,8 +30,12 @@ public class BusinessLogic implements ICoreBusiness {
 
     @Override
     public void deleteFile() {
-        // TODO Auto-generated method stub
-
+        File file = new File(baseDirName, fileName);
+        if (file.delete()) {
+            System.out.println(file.getName() + " : File Deleted");
+        } else {
+            System.out.println(file.getName() + " : No Such File Exists");
+        }
     }
 
     @Override

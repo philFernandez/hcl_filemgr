@@ -155,6 +155,7 @@ public class MainDriver {
                 break;
             case 2:
                 // delete
+                deleteFile();
                 break;
             case 3:
                 // search
@@ -189,11 +190,26 @@ public class MainDriver {
         InputReader in = InputReader.getInstance();
 
         try {
-            System.out.print("Enter File Name : ");
+            System.out.print("Enter New File Name : ");
             String fileName = in.nextLine();
             BusinessLogic newFile = new BusinessLogic(fileName);
             newFile.addFile();
         } catch (InputReaderClosedException | IOException e) {
+            // TODO set this up to log
+            e.printStackTrace();
+        }
+        startupBusinessOps();
+    }
+
+    private void deleteFile() {
+        Utils.clearScreen();
+        InputReader in = InputReader.getInstance();
+        try {
+            System.out.print("Enter File Name To Delete : ");
+            String fileName = in.nextLine();
+            BusinessLogic removeFile = new BusinessLogic(fileName);
+            removeFile.deleteFile();
+        } catch (InputReaderClosedException e) {
             // TODO set this up to log
             e.printStackTrace();
         }

@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import com.hcl.exceptions.InputReaderClosedException;
@@ -204,7 +205,7 @@ public class MainDriver {
             rootDir.mkdir();
         }
 
-        if (OS.equals("Mac OS X")) {
+        if (OS.contains("Mac")) {
             try (Stream<Path> walk = Files.walk(Paths.get(ROOT))) {
                 List<String> nodes = walk.filter(Files::isRegularFile)
                         .map(f -> f.toString()).collect(Collectors.toList());
@@ -217,6 +218,22 @@ public class MainDriver {
                 e.printStackTrace();
             }
             startup();
+        } else if (OS.contains("Windows")) {
+            try (Stream<Path> walk = Files.walk(Paths.get(ROOT))) {
+                List<String> nodes = walk.filter(Files::isRegularFile)
+                        .map(f -> f.toString()).collect(Collectors.toList());
+
+                Collections.sort(nodes, String.CASE_INSENSITIVE_ORDER);
+                nodes.forEach(node -> System.out
+                        .println(Utils.last(node.split(Pattern.quote("\\")))));
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            startup();
+        } else {
+            System.out.println("Only Windows and Mac OS are supported at this time");
         }
     }
 

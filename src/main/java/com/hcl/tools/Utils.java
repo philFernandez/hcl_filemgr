@@ -2,9 +2,10 @@ package com.hcl.tools;
 
 public class Utils {
 
+    /**
+     * Simulate clear console (works on all platforms)
+     */
     public static void clearScreen() {
-        // System.out.print("\033[H\033[2J");
-        // System.out.flush();
         System.out.println(new String(new char[50]).replace("\0", "\r\n"));
     }
 

@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -197,31 +198,29 @@ public class MainDriver {
      */
     private void displayAscending() {
         Utils.clearScreen();
-        // TODO Test this on windows os
         final String OS = System.getProperty("os.name"); // Mac OS X on mac
         final String ROOT = "LockMeFileManagerRoot";
         File rootDir = new File(ROOT);
         if (!rootDir.isDirectory()) {
             rootDir.mkdir();
         }
+        List<String> nodes = new ArrayList<>();
 
         if (OS.contains("Mac")) {
             try (Stream<Path> walk = Files.walk(Paths.get(ROOT))) {
-                List<String> nodes = walk.filter(Files::isRegularFile)
-                        .map(f -> f.toString()).collect(Collectors.toList());
+                nodes = walk.filter(Files::isRegularFile).map(f -> f.toString())
+                        .collect(Collectors.toList());
 
                 Collections.sort(nodes, String.CASE_INSENSITIVE_ORDER);
-                // nodes.forEach(node -> System.out.println(node.split("/")[1]));
                 nodes.forEach(node -> System.out.println(Utils.last(node.split("/"))));
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            startup();
         } else if (OS.contains("Windows")) {
             try (Stream<Path> walk = Files.walk(Paths.get(ROOT))) {
-                List<String> nodes = walk.filter(Files::isRegularFile)
-                        .map(f -> f.toString()).collect(Collectors.toList());
+                nodes = walk.filter(Files::isRegularFile).map(f -> f.toString())
+                        .collect(Collectors.toList());
 
                 Collections.sort(nodes, String.CASE_INSENSITIVE_ORDER);
                 nodes.forEach(node -> System.out
@@ -231,10 +230,14 @@ public class MainDriver {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            startup();
         } else {
             System.out.println("Only Windows and Mac OS are supported at this time");
+            System.exit(1);
         }
+        if (nodes.size() == 0) {
+            System.out.println("**EMPTY**");
+        }
+        startup();
     }
 
     private void addFile() {

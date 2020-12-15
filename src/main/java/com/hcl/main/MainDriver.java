@@ -21,6 +21,13 @@ import com.hcl.filemgr.ContextMenu;
 import com.hcl.tools.InputReader;
 import com.hcl.tools.Utils;
 
+/**
+ * This program is best run in the terminal. If it is run in eclipse it is best 
+ * to full screen the console.
+ * 
+ * @author philthy
+ *
+ */
 public class MainDriver {
     public static void main(String[] args) {
         Utils.clearScreen();

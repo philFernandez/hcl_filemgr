@@ -36,7 +36,7 @@ public class MainDriver {
     private void welcome() {
         String[] about =
                 {"Developer      : Phil Fernandez", "Product Owner  : Lockers Pvt. Ltd"};
-        new ContextMenu("Welcome to the LockMe.com File Manager!", about, "-");
+        new ContextMenu("Welcome to the LockedMe.com File Manager!", about, "-");
     }
 
     /**
